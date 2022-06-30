@@ -21,5 +21,11 @@ for i in *.txt;
 done
 
 
+#tar cvzf file.tar.gz *.txt
+#tar xvzf file.tar.gz -C /path/to/parent/dir
+
+#generate all > gzip it
+
+
 
 
