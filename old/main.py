@@ -1,10 +1,24 @@
 import argparse
+import time
 
 symbols = ['.','!','@','#','$','&','-','_','.',' ','+']
 res = []
 append = ["abc","abcd","123","1234","0123","wifi","password",]
 
-
+parser = argparse.ArgumentParser()
+parser.add_argument('-o')
+parser.add_argument('--extend')
+args = parser.parse_args()
+if(args.o is None) or (args.extend is None):
+	print('''
+usage : script.py --extend name -o mypasswords 
+--extend : name that you want to extend
+-o : outputed wordlist name
+		  ''')
+	args.o = "passwords"
+	exit(1)
+  
+  
 def passFromDates(base):
 	_pass = []
 	for date in range(1950,2050):
@@ -110,21 +124,10 @@ def caseToggle():
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser()
-	parser.add_argument('-o')
-	parser.add_argument('--extend')
-	args = parser.parse_args()
-	print(args)
-	if(args.o is None) or (args.extend is None):
-		print('''
-usage : script.py --extend name -o mypasswords 
---extend : name that you want to extend
--o : outputed wordlist name
-        ''')
-		args.o = "passwords"
-		exit(1)
+	
  
- 
+	
+	t0= time.time()
 	print(f"[*] Generating Passwords for {args.extend}")
 	passFromDates(args.extend)
 	pass2(args.extend)
@@ -137,3 +140,4 @@ usage : script.py --extend name -o mypasswords
 	caseToggle()
  
 print("[+] Done!")
+print("Time elapsed: ", time.time() - t0) # CPU seconds elapsed (floating point)
