@@ -1,5 +1,4 @@
-import re
-from generator import Generator,NumbersPlugin
+from generator import Generator, NumbersPlugin, SymbolesPlugin
 
 num_REGEX = r"(\[(\d+)-(\d+)\])"  #[1-9]
 symboles_range = r"(\[(\W+)+\])"  #[@,#,.]
@@ -9,31 +8,12 @@ def Ignore(line):
 
 
 
-def plugin1(*args):
-	if len(args) == 1:
-	 	#do your check here
-		if args.regex: return "regex"
-		return len( re.findall(num_range,  args[0])) > 0
-	elif len(args) == 2:
-		print("filling the plugins")
-		return ["a","b","c"]
-	else:
-		print("[-] error args not correct".title())
-		return []
-
-def plugin2():
-	print("plugin2")
-
-def plugin3(*args):
-	print("plugin3")
-
-
-
 res = []
 config = open("extend.conf", 'r')
 
 g = Generator([
-	NumbersPlugin(num_REGEX),
+	NumbersPlugin(),
+	SymbolesPlugin()
 	])
 
 for line in config:
