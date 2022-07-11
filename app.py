@@ -10,6 +10,9 @@ def Ignore(line):
 
 res = []
 config = open("extend.conf", 'r')
+namesFile = open("names.txt","r")
+passFile = open("passwords.txt","w")
+
 
 g = Generator([
 	NumbersPlugin(),
@@ -18,12 +21,19 @@ g = Generator([
 
 for line in config:
 	if Ignore(line.strip('\n')): continue
-	line = line.strip('\n').replace("{name}","ahmed")
-	# g.run(line)
-	[ res.append(x) for x in g.run(line,None,0,0) ]
+	for name in namesFile:
+		line = line.strip('\n').replace("{name}",name.lower())
+		# g.run(line)
+		[ res.append(x) for x in g.run(line,None,0,0) ]
 
-print(res)
-print("done")
+
+for r in res:
+	passFile.write(r + "\n")
+	passFile.write(r.upper() + "\n")
+
+
+
+
 
 
 
